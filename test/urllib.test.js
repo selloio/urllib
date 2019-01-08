@@ -1748,6 +1748,21 @@ describe('test/urllib.test.js', function () {
     });
   });
 
+  it.only('should return right size when method is head and content-length included', function (done) {
+    var url = config.npmRegistry + '/pedding/1.0.0';
+    urllib.request(url, {
+      method: 'HEAD',
+    }, function (err, _, res) {
+      assert(!err);
+      assert(res.statusCode === 200);
+      console.log(res);
+      assert(res.size === 1);
+
+      done();
+    });
+  });
+
+
   // only test checkAddress in node 8+
   if (parseInt(process.version.slice(1)) >= 8) {
     describe('args.checkAddress', function() {
